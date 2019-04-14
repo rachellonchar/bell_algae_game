@@ -203,7 +203,7 @@ class Alga(Sprite):
                             stats.high_score = stats.score
             else:
                 if (self.bullet_speedx>0 and bullet2.bullet_speedx>0) or (self.bullet_speedx<0 and bullet2.bullet_speedx<0):
-                    print('yes')
+                    #print('yes')
                     xory = random.randrange(-1,2,2)
                     if xory==-1:
                         self.bullet_speedx *= -1
@@ -211,7 +211,7 @@ class Alga(Sprite):
                         bullet2.bullet_speedx *= -1
                         #self.bullet_speedy *= -1
                 if (self.bullet_speedy>0 and bullet2.bullet_speedy>0) or (self.bullet_speedy<0 and bullet2.bullet_speedy<0):
-                    print('yes')
+                    #print('yes')
                     xory = random.randrange(-1,2,2)
                     if xory==-1:
                         self.bullet_speedy *= -1
