@@ -6,22 +6,16 @@ from pygame.sprite import Group
 from settings import Settings
 from time import sleep
 
-import game_functions as gf
-#regular code directory setup:
-import sys, os, os.path
-cwd = os.getcwd()
-main_dirc = cwd.split('bell_algae_game', 1)[0]
-cwd_code = main_dirc + 'bell_algae_game/code'
-sys.path.insert(0, cwd_code+'/game_objects')
 from game_stats import GameStats
 from scoreboard import Scoreboard
+
 from button import Button
 from screen_object import ScreenObj
 #from ship import Ship, Antenna
-#from eddy import Eddy#,Swirl2,Swirl3,Swirl4,Swirl5,Swirl6,Swirl7,Swirl8,Swirl9
-#from alga import Alga
+from swirl import Swirl1#,Swirl2,Swirl3,Swirl4,Swirl5,Swirl6,Swirl7,Swirl8,Swirl9
+from alga import Alga
 #from branch_bits import Branchbit
-
+import game_functions as gf
 
 #http://website.nbm-mnb.ca/mycologywebpages/NaturalHistoryOfFungi/AlgalMutualisms.html
 #https://nph.onlinelibrary.wiley.com/doi/full/10.1111/j.1469-8137.2006.01792.x

@@ -4,30 +4,17 @@
 import pygame
 from pygame.sprite import Group
 from settings import Settings
-from time import sleep
-
-import game_functions as gf
-#regular code directory setup:
-import sys, os, os.path
-cwd = os.getcwd()
-main_dirc = cwd.split('bell_algae_game', 1)[0]
-cwd_code = main_dirc + 'bell_algae_game/code'
-sys.path.insert(0, cwd_code+'/game_objects')
 from game_stats import GameStats
 from scoreboard import Scoreboard
 from button import Button
-from screen_object import ScreenObj
-#from ship import Ship, Antenna
-#from eddy import Eddy#,Swirl2,Swirl3,Swirl4,Swirl5,Swirl6,Swirl7,Swirl8,Swirl9
-#from alga import Alga
-#from branch_bits import Branchbit
-
+from ship import Ship
+#from alien import Alien
+import game_functions as gf
 
 #http://website.nbm-mnb.ca/mycologywebpages/NaturalHistoryOfFungi/AlgalMutualisms.html
 #https://nph.onlinelibrary.wiley.com/doi/full/10.1111/j.1469-8137.2006.01792.x
 #https://besjournals.onlinelibrary.wiley.com/doi/10.1111/1365-2745.12975
 #https://www.jstor.org/stable/40511430?seq=1#page_scan_tab_contents
-#
 
 
 def run_game():
@@ -36,7 +23,7 @@ def run_game():
     ai_settings = Settings()
     
     screen = pygame.display.set_mode((ai_settings.screen_width,ai_settings.screen_height))
-    pygame.display.set_caption('Algae Fun')
+    pygame.display.set_caption('Alien Invasion')
     
     #create play button
     play_button = Button(ai_settings,screen,'PLAY')
@@ -45,20 +32,25 @@ def run_game():
     stats = GameStats(ai_settings)
     sb = Scoreboard(ai_settings,screen,stats)
     
-    screen_obj = ScreenObj(ai_settings,screen)
+    #make ship
+    ship = Ship(ai_settings,screen)
+    
+    #make a group to store bullets
     bullets = Group()
-    congloms = Group()
-    eddies = Group()
+    
+    #make an alien
+    aliens = Group()
+    gf.create_fleet(ai_settings,screen,ship,aliens)
+    
     #start the main loop of the game
-    gf.update_screen(ai_settings,screen,stats,sb,play_button,eddies,screen_obj,bullets,congloms)
     while True:
         #watch for keyboard and mouse events
-        gf.check_events(ai_settings, screen, stats, sb, play_button,eddies,screen_obj,bullets,congloms)
+        gf.check_events(ai_settings, screen, stats, sb, play_button, ship, aliens, bullets)
         if stats.game_active:
-            #ship.update()
-            gf.update_bullets(ai_settings,screen,stats,sb,eddies,bullets,congloms)
-            gf.update_screen(ai_settings,screen,stats,sb,play_button,eddies,screen_obj,bullets,congloms)
-            sleep(0.1)
+            ship.update()
+            gf.update_bullets(ai_settings,screen,stats,sb,ship,aliens,bullets)
+            gf.update_aliens(ai_settings,stats,screen,ship,aliens,bullets)
+        gf.update_screen(ai_settings,screen,stats,sb,ship,aliens,bullets,play_button)
         
 
 run_game()
